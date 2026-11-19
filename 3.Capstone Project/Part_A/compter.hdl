@@ -1,0 +1,31 @@
+
+CHIP Computer {
+    IN reset;
+
+    PARTS:
+
+    // Connect CPU and Memory
+    CPU(
+        inM=memoryOut,
+        instruction=instruction,
+        reset=reset,
+        outM=outM,
+        writeM=writeM,
+        addressM=addressM,
+        pc=pc
+    );
+
+    // Connect Memory
+    Memory(
+        in=outM,
+        load=writeM,
+        address=addressM,
+        out=memoryOut
+    );
+
+    // Load instructions from ROM
+    ROM32K(
+        address=pc,
+        out=instruction
+    );
+}
